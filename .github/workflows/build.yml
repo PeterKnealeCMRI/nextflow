@@ -90,8 +90,6 @@ jobs:
       - name: Test
         if: steps.changed-files.outputs.any_changed == 'true'
         run: |
-            # dump env
-            env | sort
             # configure test env
             if [[ "$GOOGLE_SECRET" ]]; then
             echo $GOOGLE_SECRET | base64 -d > $PWD/google_credentials.json
@@ -159,6 +157,7 @@ jobs:
 
       - name: Run tests
         run: |
+          env | sort
           cat $HOME/.nextflow/scm
           make clean assemble install
           bash test-ci.sh
